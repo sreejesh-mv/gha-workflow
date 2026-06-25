@@ -25,19 +25,17 @@ jobs:
       with:
         context: .
         push: true
-        tags: |
-         sreejeshmv123/demo-nginx:latest
-         sreejeshmv123/demo-nginx:${{github.sha}}
+        tags: sreejeshmv123/hello:smv
     - name: Update application Repo
       run: |
         git clone https://${{ secrets.GITOPS_PAT }}@github.com/sreejesh-mv/argocdrepo.git
 
         cd argocdrepo
 
-        sed -i "s|image:.*|image: sreejeshmv123/demo-nginx:${GITHUB_SHA}|g" ngidep.yaml
+        sed -i "s|image:.*|image: sreejeshmv123/hello:smv|g" ngidep.yaml
         git config user.name "gha"
         git config user.email "gha@github.com"
 
         git add .
-        git commit -m "update image tag to ${GITHUB_SHA}"
+        git commit -m "update image tag to smv"
         git push         
